@@ -1,0 +1,60 @@
+<!---home page-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Finance Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Finance Tracker</div>
+        <div class="nav-links">
+            <a href="home.html" class="nav-link active">Home</a>
+            <a href="expenses.html" class="nav-link">Expenses</a>
+            <a href="converter.html" class="nav-link">Converter</a>
+            <a href="settings.html" class="nav-link">Settings</a>
+        </div>
+        <div class="profile">
+            <div class="profile-pic">U</div>
+            <div class="profile-dropdown">
+                <div class="profile-name">User</div>
+                <a href="index.html" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="stats-container">
+            <div class="stat-box">
+                <h3>Total</h3>
+                <p class="total-amount">₹0</p>
+            </div>
+            <div class="stat-box">
+                <h3>Monthly Expense</h3>
+                <p class="monthly-expense">₹0</p>
+            </div>
+            <div class="stat-box">
+                <h3>Budget</h3>
+                <p class="budget-amount">₹0</p>
+            </div>
+        </div>
+        <div class="charts-container">
+            <div class="chart-box">
+                <h3>Monthly Expenses</h3>
+                <canvas id="expense-chart"></canvas>
+            </div>
+            <div class="chart-box" >
+                <h3>Spending Categories</h3>
+                <canvas id="category-chart" ></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="home.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>
