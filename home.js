@@ -2,38 +2,56 @@ const ctx = document.getElementById('category-chart').getContext('2d');
 const ctx1 = document.getElementById('expense-chart').getContext('2d');
 
 window.onload = () => {
-    let expenses = JSON.parse(localStorage.getItem("expenses")) || [];  //from string to objects i.e. arrays
-   
-    // let expense = { date, amount, category, description: descriptionValue };
+ let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
-    const categories = ['Food', 'Rent', 'Travel', 'Medicine', 'Electricity Bill', 'Water Bill', 'Others'];
-    const categoryTotals = categories.map(cat =>
-        expenses
-            .filter(exp => exp.category === cat)
-            .reduce((sum, exp) => sum + Number(exp.amount), 0)
-    );
+  // Sanitize expenses: convert invalid amounts to 0
+  expenses = expenses.map(exp => ({
+    ...exp,
+    amount: isNaN(Number(exp.amount)) ? 0 : Number(exp.amount)
+  }));
+
+  // ----- Monthly Expense Calculation -----
+  const now = new Date();
+  const currentMonth = now.getMonth(); // 0-based
+  const currentYear = now.getFullYear();
+
+  const totalThisMonth = expenses
+    .filter(exp => {
+      const [day, month, year] = exp.date.split("/").map(Number);
+      return (month - 1) === currentMonth && year === currentYear;
+    })
+    .reduce((sum, exp) => sum + exp.amount, 0);
+
+  const monthlyexpamtEl = document.querySelector(".monthly-expense");
+  monthlyexpamtEl.innerText = `₹${totalThisMonth.toFixed(2)}`;
 
 
-    const myPieChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: categories,
-            datasets: [{
-                data: categoryTotals,
-                backgroundColor: ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'grey'],
-            }]
-        },
-    });
 
+  const categories = ['Food', 'Rent', 'Travel', 'Medicine', 'Electricity Bill', 'Water Bill', 'Others'];
+  const categoryTotals = categories.map(cat =>
+    expenses
+      .filter(exp => exp.category === cat)
+      .reduce((sum, exp) => sum + Number(exp.amount), 0)
+  );
 
+  const myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: categories,
+      datasets: [{
+        data: categoryTotals,
+        backgroundColor: ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'grey'],
+      }]
+    },
+  });
   const uniqueDates = [...new Set(expenses.map(exp => exp.date))].sort();
-
-  const dailyTotals = uniqueDates.map(date => 
+  const dailyTotals = uniqueDates.map(date =>
     expenses
       .filter(exp => exp.date === date)
       .reduce((sum, exp) => sum + Number(exp.amount), 0)
   );
-    const dailyBarChart = new Chart(ctx1, {
+
+  const dailyBarChart = new Chart(ctx1, {
     type: 'bar',
     data: {
       labels: uniqueDates,
@@ -59,22 +77,5 @@ window.onload = () => {
       }
     }
   });
-
-
-
-let expenseamt = 0;
-
-// Get the element and convert its text to a number
-let monthlyexpamtEl = document.getElementsByClassName("monthly-expense")[0];
-let currentValue = parseInt(monthlyexpamtEl.innerText) || 0;
-
-// Add today's total
-expenseamt = currentValue + Number(dailyTotals);
-
-// Update the DOM
-monthlyexpamtEl.innerText = expenseamt;
-
 };
-
-
 
