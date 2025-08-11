@@ -20,14 +20,14 @@
             <a href="expenses.html" class="nav-link">Expenses</a>
             <a href="converter.html" class="nav-link active">Converter</a>
             <button id="theme-toggle" class="nav-link" style="border:none; background:none; cursor:pointer;">
-            🌙
-        </button>
+                🌙
+            </button>
         </div>
         <div class="profile">
-            <div class="profile-pic">U</div>
+            <div class="profile-pic" id="profile-icon">U</div>
             <div class="profile-dropdown">
-                <div class="profile-name">User</div>
-                <a href="login.html" class="logout-btn">Logout</a>
+                <div class="profile-name" id="profile-username">User</div>
+                <button id="logout-btn" class="btn">Logout</button>
             </div>
         </div>
     </nav>
@@ -38,6 +38,7 @@
             <form>
                 <div class="amount">
                     <p>Enter Amount</p>
+                    <br>
                     <input value="1" type="text" />
                 </div>
                 <div class="dropdown">
@@ -58,13 +59,13 @@
                     </div>
                 </div>
                 <div class="msg">1USD = 80INR</div>
-                <button class="btn">Get Exchange Rate</button>
             </form>
         </div>
         <script src="codes.js"></script>
         <script src="converter.js"></script>
+        <script src="dark.js"></script>
+        <script src="profile.js"></script>
     </div>
-    <script src="dark.js"></script>
 </body>
 
 </html>

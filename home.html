@@ -1,6 +1,6 @@
-<!---home page-->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,7 @@
 
 
 </head>
+
 <body>
     <nav class="navbar">
         <div class="logo">Finance Tracker</div>
@@ -17,15 +18,16 @@
             <a href="home.html" class="nav-link active">Home</a>
             <a href="expenses.html" class="nav-link">Expenses</a>
             <a href="converter.html" class="nav-link">Converter</a>
-          <button id="theme-toggle" class="nav-link" style="border:none; background:none; cursor:pointer; font-size: 1.2em;">
-            🌙
-        </button>
+            <button id="theme-toggle" class="nav-link"
+                style="border:none; background:none; cursor:pointer; font-size: 1.2em;">
+                🌙
+            </button>
         </div>
         <div class="profile">
-            <div class="profile-pic">U</div>
+            <div class="profile-pic" id="profile-icon">U</div>
             <div class="profile-dropdown">
-                <div class="profile-name">User</div>
-                <a href="index.html" class="logout-btn">Logout</a>
+                <div class="profile-name" id="profile-username">User</div>
+                <button id="logout-btn" class="btn">Logout</button>
             </div>
         </div>
     </nav>
@@ -50,15 +52,21 @@
                 <h3>Monthly Expenses</h3>
                 <canvas id="expense-chart"></canvas>
             </div>
-            <div class="chart-box" >
+            <div class="chart-box">
                 <h3>Spending Categories</h3>
-                <canvas id="category-chart" ></canvas>
+                <canvas id="category-chart"></canvas>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
    
 <script src="dark.js"></script>
+=======
+    <script src="profile.js"></script>
+    <script src="dark.js"></script>
+>>>>>>> f49e245 (Add login using localStorage, fix converter issue, and set profile picture from username)
     <script src="home.js"></script>
     <script src="login.js"></script>
 </body>
+
 </html>

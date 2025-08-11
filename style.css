@@ -1,25 +1,30 @@
 :root {
-    --ash-gray: #abc4ab;
-    --lion: #a39171;
-    --dun: #dcc9b6;
-    --reseda-green: #727d71;
-    --coffee: #6d4c3d;
-    --text-dark: #333;
-    --text-light: #f5f5f5;
-    --bg-light: #f9f9f9;
-    --bg-dark: #2d2d2d;
-    --card-bg: #fff;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+    --ash-gray: #ABC4AB;  
+    --lion: #A39171;     
+    --dun: #DCC9B6;      
+    --reseda-green: #727D71;  
+    --coffee: #6D4C3D;   
+    --text-dark: #333;  
+    --text-light: #F5F5F5;  
+    --bg-light: #F9F9F9;  
+    --bg-dark: #1E1E1E;  /* Darker for better contrast */  
+    --card-bg: #FFF;  
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
+}  
 
-[data-theme="dark"] {
-    --text-dark: #f5f5f5;
-    --text-light: #333;
-    --bg-light: #2d2d2d;
-    --bg-dark: #1a1a1a;
-    --card-bg: #3d3d3d;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
+[data-theme="dark"] {  
+    --ash-gray: #8BA18B;  /* Slightly brighter for visibility */  
+    --lion: #B8A378;     /* More golden for contrast */  
+    --dun: #D1B899;      /* Warmer beige */  
+    --reseda-green: #5E6B5E;  /* Darker but still readable */  
+    --coffee: #A07860;   /* Lighter brown for legibility */  
+    --text-dark: #F0F0F0; /* Softer white for less strain */  
+    --text-light: #222;  
+    --bg-light: #2A2A2A;  /* Not pure black for depth */  
+    --bg-dark: #121212;  /* True dark for OLED */  
+    --card-bg: #252525;  /* Dark gray instead of pure black */  
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.4);  
+}  
 
 * {
     margin: 0;
@@ -36,6 +41,17 @@ body {
 }
 .hide{
     display: none;
+}
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
 
 /* Login Page */
@@ -404,7 +420,28 @@ form input {
   margin-top: 1rem;
 }
 .msg {
-  margin: 2rem 0 2rem 0;
+    margin-top: 15px;
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.05); /* subtle transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #76d681; /* muted greenish text */
+    text-align: center;
+    backdrop-filter: blur(4px); /* glass effect */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    width: 50%;
+    margin: 15px auto;
+}
+
+
+/* Highlight flash when updated */
+.msg.updated {
+    background: rgba(205, 230, 208, 0.15); 
+    color: #a8d5a0;
+    transform: scale(1.02);
 }
 
 /* Settings Page Styles */

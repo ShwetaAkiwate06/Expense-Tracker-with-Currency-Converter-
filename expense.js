@@ -1,47 +1,104 @@
-let btn = document.querySelector(".btn");
-let tbody = document.getElementById("tbody");
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('expense-form');
+    const tbody = document.getElementById('tbody');
 
-// Load and render saved expenses on page load
-window.onload = () => {
-    let expenses = JSON.parse(localStorage.getItem("expenses")) || [];  //from string to objects i.e. arrays
-    expenses.forEach(exp => { 
-        addExpenseRow(exp);
+    // Get current user
+    function getCurrentUser() {
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        return users.find(u => u.username === loggedInUser);
+    }
+
+    // Save user data
+    function saveUserData(user) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const index = users.findIndex(u => u.username === user.username);
+        if (index !== -1) {
+            users[index] = user;
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+    }
+
+    // Add expense to table
+    function addExpenseToTable(expense) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${expense.date}</td>
+            <td>₹${expense.amount.toFixed(2)}</td>
+            <td>${expense.category}</td>
+            <td>${expense.description}</td>
+        `;
+        tbody.appendChild(row);
+    }
+
+    // Load existing expenses
+    function loadExpenses() {
+        const user = getCurrentUser();
+        if (!user) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        tbody.innerHTML = '';
+        if (user.expenses && user.expenses.length > 0) {
+            user.expenses.forEach(expense => {
+                addExpenseToTable(expense);
+            });
+        }
+    }
+
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const user = getCurrentUser();
+        if (!user) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        // Get form values
+        const amount = parseFloat(document.getElementById('amount').value);
+        const category = document.getElementById('category').value;
+        const description = document.getElementById('description').value || '--';
+
+        // Validate
+        if (isNaN(amount) || amount <= 0) {
+            alert('Please enter a valid amount');
+            return;
+        }
+
+        if (!category) {
+            alert('Please select a category');
+            return;
+        }
+
+        // Create new expense
+        const newExpense = {
+            date: new Date().toLocaleDateString(),
+            amount: amount,
+            category: category,
+            description: description
+        };
+
+        // Initialize expenses array if needed
+        if (!user.expenses) {
+            user.expenses = [];
+        }
+
+        // Update user data
+        user.expenses.push(newExpense);
+        user.totalAmount -= amount;
+        user.monthlyExpense += amount;
+
+        // Save and update UI
+        saveUserData(user);
+        addExpenseToTable(newExpense);
+
+        // Reset form
+        form.reset();
     });
-};
 
-btn.addEventListener("click", () => {
-    let now = new Date();
-    let amount = parseFloat(document.getElementById("expense-amount").value).toFixed(2);
-    let date = now.toLocaleDateString();
-    let category = document.getElementById("expense-category").selectedOptions[0].text;
-    let descriptionValue = document.getElementById("description").value.trim() || "--"; //trim to remove spaces before and after the text.
-
-    let expense = { date, amount, category, description: descriptionValue };
-
-    // Get saved expenses or empty array
-    let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
-
-    // Add new expense to array
-    expenses.push(expense);
-
-    // Save back to localStorage
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-
-    // Add row to table immediately
-    addExpenseRow(expense);
-
-    // Optionally, clear inputs for better UX
-    document.getElementById("expense-amount").value = "";
-    document.getElementById("expense-category").selectedIndex = 0;
-    document.getElementById("description").value = "";
+    // Initial load
+    loadExpenses();
 });
-
-function addExpenseRow(exp) {
-    tbody.innerHTML += `
-    <tr>
-        <td>${exp.date}</td>
-        <td>₹${exp.amount}</td>
-        <td>${exp.category}</td>
-        <td>${exp.description}</td>
-    </tr>`;
-}
