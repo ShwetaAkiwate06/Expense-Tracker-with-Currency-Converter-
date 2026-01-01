@@ -48,9 +48,32 @@
             </div>
         </div>
         <div class="charts-container">
+
             <div class="chart-box">
                 <h3>Monthly Expenses</h3>
-                <canvas id="expense-chart"></canvas>
+                <select id="monthSelect">
+                    <option value="1">Jan</option>
+                    <option value="2">Feb</option>
+                    <option value="3">Mar</option>
+                    <option value="4">Apr</option>
+                    <option value="5">May</option>
+                    <option value="6">Jun</option>
+                    <option value="7">Jul</option>
+                    <option value="8">Aug</option>
+                    <option value="9">Sep</option>
+                    <option value="10">Oct</option>
+                    <option value="11">Nov</option>
+                    <option value="12">Dec</option>
+                </select>
+
+                <select id="yearSelect">
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                </select>
+
+
+                <canvas id="monthlyChart"></canvas>
             </div>
             <div class="chart-box">
                 <h3>Spending Categories</h3>
@@ -58,10 +81,13 @@
             </div>
         </div>
     </div>
+
+    <script src="config.js"></script>
     <script src="profile.js"></script>
     <script src="dark.js"></script>
     <script src="home.js"></script>
-    <script src="login.js"></script>
+
+    <script src="logout.js"></script>
 </body>
 
 </html>

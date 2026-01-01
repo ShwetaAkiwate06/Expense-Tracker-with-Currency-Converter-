@@ -26,7 +26,7 @@ for (let select of dropdowns) {
         updateExchangeRate();
     });
 }
-const BASE_URL = "https://api.frankfurter.app/latest";
+const FX_URL = "https://api.frankfurter.app/latest";
 
 const updateExchangeRate = async () => {
     let amtVal = parseFloat(amountInput.value);
@@ -36,7 +36,7 @@ const updateExchangeRate = async () => {
     }
     
     try {
-        const URL = `${BASE_URL}?from=${fromCurr.value}&to=${toCurr.value}`;
+        const URL = `${FX_URL}?from=${fromCurr.value}&to=${toCurr.value}`;
         let response = await fetch(URL);
         
         if (!response.ok) {
